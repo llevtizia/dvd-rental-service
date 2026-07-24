@@ -12,7 +12,7 @@ public class Dvd
 
     public int DurataMinuti { get; set; }
 
-    public int Quantita { get; set; }
+    public int QuantitaTotale { get; set; }
 
     // un dvd può essere stato noleggiato tante volte
     public ICollection<Noleggio> Noleggi { get; set; } = [];

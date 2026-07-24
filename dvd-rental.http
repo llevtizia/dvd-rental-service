@@ -4,3 +4,92 @@ GET {{dvd_rental_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+### 1 - crea un cliente di prova
+POST http://localhost:5114/api/Clienti
+content-type: application/json
+
+{
+    "nome": "Lucia",
+    "cognome": "Verdi",
+    "email": "lverdi1@test.it"
+}
+
+###
+
+GET http://localhost:5114/api/Clienti
+
+###
+
+###
+GET http://localhost:5114/api/Clienti/1
+
+### 2 - guarda il catalogo e scegli un dvd
+GET http://localhost:5114/api/Dvd
+
+###
+
+### 3 - crea un noleggio
+POST http://localhost:5114/api/Noleggi
+content-type: application/json
+
+{
+    "clienteId": 1,
+    "dvdId": 11,
+    "restituzionePrevista": "2026-08-01"
+}
+
+###
+
+### 4 - "disponibili" è sceso di 1 
+GET http://localhost:5114/api/Dvd
+
+
+###
+
+### 5 - noleggiare di nuovo lo stesso DVD fallisce se non ci sono copie
+POST http://localhost:5114/api/Noleggi
+content-type: application/json
+
+{
+    "clienteId": 2,
+    "dvdId": 11,
+    "restituzionePrevista": "2026-08-05"
+}
+
+###
+
+### 6 - restituisci il noleggio del punto 3
+PUT http://localhost:5114/api/Noleggi/1/restituzione
+
+###
+
+### 7 - "disponibili" è tornato a 1
+GET http://localhost:5114/api/Dvd
+
+###
+
+### 8 - restituire di nuovo lo stesso noleggio da Bad request
+PUT http://localhost:5114/api/Noleggi/1/restituzione
+
+###
+
+### 9 - storico filtrato per cliente
+GET http://localhost:5114/api/Noleggi?clienteId=1
+
+###
+
+### 10 - storico filtrato per titolo
+GET http://localhost:5114/api/Noleggi?titolo=Witch
+
+###
+
+GET http://localhost:5114/api/Noleggi/1
+
+### 11 - id inesistente cliente
+GET http://localhost:5114/api/Clienti/999
+
+###
+
+### 12 - id inesistente noleggio
+PUT http://localhost:5114/api/Noleggi/999/restituzione
