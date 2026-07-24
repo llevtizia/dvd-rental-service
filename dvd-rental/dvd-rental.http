@@ -1,8 +1,5 @@
 @dvd_rental_HostAddress = http://localhost:5114
 
-GET {{dvd_rental_HostAddress}}/weatherforecast/
-Accept: application/json
-
 ###
 
 ### 1 - crea un cliente di prova
