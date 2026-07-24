@@ -8,6 +8,13 @@ Applicazione web per la gestione del noleggio di DVD di un negozio: catalogo con
 - **Frontend**: React (Vite)
 - **API docs**: Scalar (OpenAPI UI) su `/scalar/v1`, disponibile solo in ambiente di sviluppo
 
+## Prerequisiti
+
+- .NET SDK 10+
+- Node.js 20.19+ / 22.12+ (include npm)
+- Strumento `dotnet-ef` installato globalmente: `dotnet tool install --global dotnet-ef`
+
+
 ## Avvio backend
 
 ```bash
