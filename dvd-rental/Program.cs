@@ -1,7 +1,7 @@
 using Scalar.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 using dvd_rental.Data;
-using Microsoft.EntityFrameworkCore;
 
 
 
@@ -31,6 +31,15 @@ builder.Services.AddDbContext<AppDbContext>( options =>
     }));
 
 
+// CORS -> autorizza il frontend 
+builder.Services.AddCors( options =>
+{
+    options.AddPolicy( "AllowFrontend", policy =>
+        policy.WithOrigins( "http://localhost:5173") // da controllare
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -47,6 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend"); // attiva la policy nella pipeline
 
 app.UseAuthorization();
 
