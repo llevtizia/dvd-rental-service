@@ -4,8 +4,8 @@ Applicazione web per la gestione del noleggio di DVD di un negozio: catalogo con
 
 ## Stack scelto
 
-- **Backend**: ASP.NET Core Web API (.NET 10) + Entity Framework Core + SQLite
-- **Frontend**: React (in corso di sviluppo)
+- **Backend**: ASP.NET Core (C#) + Entity Framework Core + SQLite
+- **Frontend**: React (Vite)
 - **API docs**: Scalar (OpenAPI UI) su `/scalar/v1`, disponibile solo in ambiente di sviluppo
 
 ## Avvio backend
@@ -21,13 +21,14 @@ L'API sarà disponibile sulla porta indicata in console all'avvio (es. `http://l
 
 ## Avvio frontend
 
-*(sezione da completare una volta pronto il frontend React)*
-
 ```bash
 cd dvd-rental-client
-npm install
+npm install   # solo la prima volta, per scaricare le dipendenze
 npm run dev
 ```
+L'app sarà disponibile sull'URL mostrato in console (di norma http://localhost:5173). **Nota**: se il frontend non parte su http://localhost:5173 (perché la porta è occupata), è necessario aggiornare la configurazione CORS in `Program.cs` (WithOrigins) con la porta effettiva mostrata da Vite in console.
+
+**Importante**: avviare backend e frontend contemporaneamente da due terminali separati.
 
 ## Seed dei dati
 
@@ -56,15 +57,14 @@ I clienti, al contrario, sono creati tramite l'endpoint `POST /api/Clienti`, com
 - **Database SQLite**: scelto per un setup più semplice in locale (nessun server esterno da installare, scalabilità multi utente non richiesta), mantenendo comunque la persistenza dei dati.
 - **Validazioni di esistenza**: la creazione di un noleggio verifica esplicitamente che sia il cliente sia il DVD esistano, restituendo `404` altrimenti; se non ci sono copie disponibili, restituisce `400`.
 - **Nessun repository/service layer separato**: date le dimensioni ridotte del progetto, la logica di business resta nei controller con accesso diretto a `DbContext` per evitare complessità non necessarie.
+- **CORS** è configurato per accettare richieste solo da http://localhost:5173 (l'origine del frontend in sviluppo).
 
 
-## Stato di avanzamento
+## Funzionalità implementate
 
-- [x] Modello dati e migrazioni EF Core
-- [x] Seed del catalogo DVD
-- [x] Endpoint Clienti (create, list, get by id)
-- [x] Endpoint Dvd (catalogo con disponibilità)
-- [x] Endpoint Noleggi (create, get by id, restituzione, storico con filtri)
-- [ ] Frontend React
-- [ ] Configurazione CORS
-- [ ] Docker 
+
+- Gestione clienti (creazione, elenco)
+- Catalogo DVD con disponibilità in tempo reale
+- Creazione noleggi con controllo automatico delle copie disponibili
+- Restituzione DVD
+- Storico noleggi con filtri per cliente e titolo
